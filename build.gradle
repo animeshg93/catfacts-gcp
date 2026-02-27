@@ -25,7 +25,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub:7.0.0'
+	implementation platform('com.google.cloud:spring-cloud-gcp-dependencies:5.9.0')
+	implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub'
 
 	implementation 'org.postgresql:postgresql'
 	implementation 'com.google.cloud.sql:postgres-socket-factory:1.15.2'
