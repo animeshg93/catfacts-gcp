@@ -1,9 +1,6 @@
 package com.example.purrfacts.cat.controller;
 
-import com.example.purrfacts.cat.model.User;
 import com.example.purrfacts.cat.pubsub.CatPublisher;
-import com.example.purrfacts.cat.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
