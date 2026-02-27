@@ -1,7 +1,6 @@
 package com.example.purrfacts.cat.pubsub;
 
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
