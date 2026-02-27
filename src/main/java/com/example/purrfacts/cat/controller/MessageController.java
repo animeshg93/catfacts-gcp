@@ -20,7 +20,7 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> publishMessage(String message) {
+    public ResponseEntity<String> publishMessage(@RequestBody String message) {
         catPublisher.publishMessage(message);
         return ResponseEntity.status(HttpStatus.CREATED).body("Message published");
     }
