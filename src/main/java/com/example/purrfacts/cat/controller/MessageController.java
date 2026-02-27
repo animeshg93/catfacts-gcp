@@ -1,6 +1,7 @@
 package com.example.purrfacts.cat.controller;
 
 import com.example.purrfacts.cat.pubsub.CatPublisher;
+import com.example.purrfacts.cat.pubsub.CatSubscriber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,12 @@ import java.util.List;
 public class MessageController {
 
     private final CatPublisher catPublisher;
+    private final CatSubscriber catSubscriber;
 
     @Autowired
-    public MessageController(CatPublisher catPublisher) {
+    public MessageController(CatPublisher catPublisher, CatSubscriber catSubscriber) {
         this.catPublisher = catPublisher;
+        this.catSubscriber = catSubscriber;
     }
 
     @PostMapping
@@ -25,4 +28,9 @@ public class MessageController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Message published");
     }
 
+    @GetMapping("/pull")
+    public ResponseEntity<String> getMessages() {
+        String message = catSubscriber.pull("testTopic-sub");
+        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+    }
 }
