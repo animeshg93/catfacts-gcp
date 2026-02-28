@@ -1,0 +1,24 @@
+package com.example.purrfacts.cat.controller;
+
+import com.example.purrfacts.cat.model.Cartoon;
+import com.example.purrfacts.cat.repository.CartoonRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/cartoons")
+public class CartoonController {
+
+    private final CartoonRepository cartoonRepository;
+
+    public CartoonController(CartoonRepository cartoonRepository) {
+        this.cartoonRepository = cartoonRepository;
+    }
+
+    @PostMapping
+    public ResponseEntity<String> publishMessage(@RequestBody Cartoon cartoon) {
+        cartoonRepository.save(cartoon);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Cartoon created successfully");
+    }
+}
