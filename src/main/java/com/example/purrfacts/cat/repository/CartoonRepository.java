@@ -14,7 +14,7 @@ public class CartoonRepository {
     }
 
     public int save(Cartoon cartoon) {
-        String sql = "INSERT INTO cartoon (name, year) VALUES (?, ?)";
+        String sql = "INSERT INTO cartoons (name, year) VALUES (?, ?)";
         return jdbcTemplate.update(sql, cartoon.getName(), cartoon.getYear());
     }
 }
