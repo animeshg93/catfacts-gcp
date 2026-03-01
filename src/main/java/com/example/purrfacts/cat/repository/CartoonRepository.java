@@ -22,8 +22,8 @@ public class CartoonRepository {
     }
 
     public int save(Cartoon cartoon) {
-        String sql = "INSERT INTO cartoons (name, year) VALUES (?, ?)";
-        return jdbcTemplate.update(sql, cartoon.getName(), cartoon.getYear());
+        String sql = "INSERT INTO cartoons (name, year, abbreviation) VALUES (?, ?, ?)";
+        return jdbcTemplate.update(sql, cartoon.getName(), cartoon.getYear(), cartoon.getAbbreviation());
     }
 
     public Cartoon getByAbb(String abbreviation) {
