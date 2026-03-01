@@ -23,7 +23,7 @@ public class CartoonController {
     }
 
     @GetMapping("/abbreviation/{abbr}")
-    public ResponseEntity<Cartoon> getCartoonByAbbr(@RequestParam String abbreviation) {
+    public ResponseEntity<Cartoon> getCartoonByAbbr(@PathVariable String abbreviation) {
         Cartoon cartoon = cartoonRepository.getByAbb(abbreviation);
         return ResponseEntity.status(HttpStatus.OK).body(cartoon);
     }
