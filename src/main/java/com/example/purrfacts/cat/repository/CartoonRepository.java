@@ -4,6 +4,7 @@ import com.example.purrfacts.cat.model.Cartoon;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Repository
 public class CartoonRepository {
@@ -32,5 +33,10 @@ public class CartoonRepository {
                 .stream()
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<Cartoon> getAll() {
+        String sql = "SELECT * FROM cartoons";
+        return jdbcTemplate.query(sql, cartoonRowMapper);
     }
 }
