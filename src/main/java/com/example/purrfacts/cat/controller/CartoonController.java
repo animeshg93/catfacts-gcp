@@ -22,6 +22,7 @@ public class CartoonController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Cartoon created successfully");
     }
 
+    @GetMapping("/abbreviation/{abbr}")
     public ResponseEntity<Cartoon> getCartoonByAbbr(@RequestParam String abbreviation) {
         Cartoon cartoon = cartoonRepository.getByAbb(abbreviation);
         return ResponseEntity.status(HttpStatus.OK).body(cartoon);
