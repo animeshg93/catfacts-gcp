@@ -1,6 +1,7 @@
 package com.example.purrfacts.cat.model;
 
 public class Cartoon {
+    private String abbreviation;
     private String name;
     private int year;
 
@@ -8,7 +9,8 @@ public class Cartoon {
     public Cartoon() {
     }
 
-    public Cartoon(String name, int year) {
+    public Cartoon(String abbreviation, String name, int year) {
+        this.abbreviation = abbreviation;
         this.name = name;
         this.year = year;
     }
@@ -37,5 +39,13 @@ public class Cartoon {
                 "name='" + name + '\'' +
                 ", year=" + year +
                 '}';
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 }

@@ -21,4 +21,9 @@ public class CartoonController {
         cartoonRepository.save(cartoon);
         return ResponseEntity.status(HttpStatus.CREATED).body("Cartoon created successfully");
     }
+
+    public ResponseEntity<Cartoon> getCartoonByAbbr(@RequestParam String abbreviation) {
+        Cartoon cartoon = cartoonRepository.getByAbb(abbreviation);
+        return ResponseEntity.status(HttpStatus.OK).body(cartoon);
+    }
 }
