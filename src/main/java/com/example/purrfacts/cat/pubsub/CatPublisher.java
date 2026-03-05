@@ -7,15 +7,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CatPublisher {
 
-    @Value("${pubsub.topic}")
-    private String topicName;
-    private final PubSubTemplate pubSubTemplate;
+  @Value("${pubsub.topic}")
+  private String topicName;
 
-    public CatPublisher(PubSubTemplate pubSubTemplate) {
-        this.pubSubTemplate = pubSubTemplate;
-    }
+  private final PubSubTemplate pubSubTemplate;
 
-    public void publishMessage(String message) {
-        pubSubTemplate.publish(topicName, message);
-    }
+  public CatPublisher(PubSubTemplate pubSubTemplate) {
+    this.pubSubTemplate = pubSubTemplate;
+  }
+
+  public void publishMessage(String message) {
+    pubSubTemplate.publish(topicName, message);
+  }
 }
