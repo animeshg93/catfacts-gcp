@@ -20,7 +20,7 @@ public class TokenService {
 
   public String fetchAccessToken() {
     try {
-      return Unirest.post("https://dev-xjtz6ps1llg7ich0.us.auth0.com/oauth/token")
+      return Unirest.post(tokenApiUrl)
           .header("content-type", "application/json")
           .basicAuth(clientId, clientSecret)
           .body(
