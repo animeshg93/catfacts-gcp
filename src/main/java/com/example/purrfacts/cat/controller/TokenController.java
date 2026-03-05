@@ -1,9 +1,6 @@
 package com.example.purrfacts.cat.controller;
 
 import com.example.purrfacts.cat.service.TokenService;
-import java.util.HashMap;
-import java.util.Map;
-
 import kong.unirest.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +20,13 @@ public class TokenController {
 
   @GetMapping
   public ResponseEntity<JSONObject> getAccessToken() {
-    JSONObject token = tokenService.fetchAccessToken();
-    return ResponseEntity.status(HttpStatus.OK).body(token);
+    try {
+      JSONObject tokenResponse = tokenService.fetchAccessToken();
+      return ResponseEntity.status(HttpStatus.OK).body(tokenResponse);
+    } catch (RuntimeException e) {
+      JSONObject errorResponse = new JSONObject();
+      errorResponse.put("error", e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
   }
 }

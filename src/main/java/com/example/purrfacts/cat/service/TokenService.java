@@ -1,6 +1,6 @@
 package com.example.purrfacts.cat.service;
 
-import com.google.api.client.json.Json;
+import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
@@ -23,13 +23,23 @@ public class TokenService {
 
   public JSONObject fetchAccessToken() {
     try {
-      return Unirest.post(tokenApiUrl)
+      HttpResponse<JsonNode> response = Unirest.post(tokenApiUrl)
           .header("content-type", "application/json")
           .basicAuth(clientId, clientSecret)
           .body(
               "{\"audience\":\"https://cat-facts.com/api/v2/\",\"grant_type\":\"client_credentials\"}")
-          .asJson()
-              .getBody().getObject();
+          .asJson();
+
+      if (!response.isSuccess()) {
+        throw new RuntimeException("Failed to fetch access token. Status: " + response.getStatus());
+      }
+
+      JsonNode body = response.getBody();
+      if (body == null) {
+        throw new RuntimeException("Empty response body from token API");
+      }
+
+      return body.getObject();
 
     } catch (Exception e) {
       throw new RuntimeException("Failed to fetch access token: " + e.getMessage(), e);
