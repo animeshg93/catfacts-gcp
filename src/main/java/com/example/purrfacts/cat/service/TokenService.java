@@ -21,25 +21,15 @@ public class TokenService {
 
   public TokenService() {}
 
-  public JSONObject fetchAccessToken() {
+  public String fetchAccessToken() {
     try {
-      HttpResponse<JsonNode> response = Unirest.post(tokenApiUrl)
-          .header("content-type", "application/json")
-          .basicAuth(clientId, clientSecret)
-          .body(
-              "{\"audience\":\"https://cat-facts.com/api/v2/\",\"grant_type\":\"client_credentials\"}")
-          .asJson();
-
-      if (!response.isSuccess()) {
-        throw new RuntimeException("Failed to fetch access token. Status: " + response.getStatus());
-      }
-
-      JsonNode body = response.getBody();
-      if (body == null) {
-        throw new RuntimeException("Empty response body from token API");
-      }
-
-      return body.getObject();
+      return Unirest.post("https://dev-xjtz6ps1llg7ich0.us.auth0.com/oauth/token")
+              .header("content-type", "application/json")
+              .basicAuth(clientId, clientSecret)
+              .body(
+                      "{\"audience\":\"https://cat-facts.com/api/v2/\",\"grant_type\":\"client_credentials\"}")
+          .asString()
+              .getBody();
 
     } catch (Exception e) {
       throw new RuntimeException("Failed to fetch access token: " + e.getMessage(), e);

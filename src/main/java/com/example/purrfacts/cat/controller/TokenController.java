@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/token")
 public class TokenController {
@@ -19,14 +22,10 @@ public class TokenController {
   }
 
   @GetMapping
-  public ResponseEntity<JSONObject> getAccessToken() {
-    try {
-      JSONObject tokenResponse = tokenService.fetchAccessToken();
-      return ResponseEntity.status(HttpStatus.OK).body(tokenResponse);
-    } catch (RuntimeException e) {
-      JSONObject errorResponse = new JSONObject();
-      errorResponse.put("error", e.getMessage());
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-    }
+  public  ResponseEntity<Map<String, String>> getAccessToken() {
+    String token = tokenService.fetchAccessToken();
+    Map<String, String> response = new HashMap<>();
+    response.put("accessToken", token);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }
