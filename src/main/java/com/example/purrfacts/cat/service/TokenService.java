@@ -22,7 +22,7 @@ public class TokenService {
     try {
       return Unirest.post("https://dev-xjtz6ps1llg7ich0.us.auth0.com/oauth/token")
           .header("content-type", "application/json")
-              .basicAuth(clientId, clientSecret)
+          .basicAuth(clientId, clientSecret)
           .body(
               "{\"audience\":\"https://cat-facts.com/api/v2/\",\"grant_type\":\"client_credentials\"}")
           .asString()
