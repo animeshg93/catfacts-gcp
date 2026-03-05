@@ -1,9 +1,6 @@
 package com.example.purrfacts.cat.service;
 
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import kong.unirest.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +21,12 @@ public class TokenService {
   public String fetchAccessToken() {
     try {
       return Unirest.post("https://dev-xjtz6ps1llg7ich0.us.auth0.com/oauth/token")
-              .header("content-type", "application/json")
-              .basicAuth(clientId, clientSecret)
-              .body(
-                      "{\"audience\":\"https://cat-facts.com/api/v2/\",\"grant_type\":\"client_credentials\"}")
+          .header("content-type", "application/json")
+          .basicAuth(clientId, clientSecret)
+          .body(
+              "{\"audience\":\"https://cat-facts.com/api/v2/\",\"grant_type\":\"client_credentials\"}")
           .asString()
-              .getBody();
+          .getBody();
 
     } catch (Exception e) {
       throw new RuntimeException("Failed to fetch access token: " + e.getMessage(), e);
