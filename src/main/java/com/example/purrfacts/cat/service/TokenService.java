@@ -1,10 +1,8 @@
 package com.example.purrfacts.cat.service;
 
-import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,8 +13,12 @@ import java.util.Map;
 @Service
 public class TokenService {
 
-    @Value("${token.api.url:https://oauth2.googleapis.com/token}")
+    @Value("${auth.token.api}")
     private String tokenApiUrl;
+    @Value("${auth.client-id}")
+    private String clientId;
+    @Value("${auth.client-secret}")
+    private String clientSecret;
 
     public TokenService() {
     }
@@ -29,8 +31,9 @@ public class TokenService {
             // Prepare request body with credentials
             Map<String, String> requestBody = new HashMap<>();
             requestBody.put("grant_type", "client_credentials");
-            requestBody.put("client_id", System.getenv("CLIENT_ID"));
-            requestBody.put("client_secret", System.getenv("CLIENT_SECRET"));
+            requestBody.put("audience", "https://cat-facts.com/api/v2/");
+            requestBody.put("client_id", clientId);
+            requestBody.put("client_secret", clientSecret);
 
             HttpEntity<Map<String, String>> request = new HttpEntity<>(requestBody, headers);
 

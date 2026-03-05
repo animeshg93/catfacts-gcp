@@ -2,6 +2,7 @@ package com.example.purrfacts.cat.pubsub;
 
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
 import com.google.pubsub.v1.PubsubMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 @Component
 public class CatSubscriber {
 
+    @Value("${pubsub.subscription}")
+    private String subscription;
     private final PubSubTemplate pubSubTemplate;
 
     public CatSubscriber(PubSubTemplate pubSubTemplate) {
@@ -16,7 +19,7 @@ public class CatSubscriber {
     }
 
     public void subscribe(String topic, String message) {
-        pubSubTemplate.subscribe("testTopic-sub",   mes -> {
+        pubSubTemplate.subscribe(subscription,   mes -> {
             System.out.println("Message received is:  "
                     + mes.getPubsubMessage().getData().toStringUtf8());
             mes.ack();
