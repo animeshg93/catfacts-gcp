@@ -11,7 +11,7 @@ COPY settings.gradle build.gradle /workspace/
 RUN chmod +x /workspace/gradlew && /workspace/gradlew --no-daemon -v
 
 COPY src /workspace/src
-RUN /workspace/gradlew --no-daemon clean bootJar
+RUN /workspace/gradlew --no-daemon clean spotlessApply bootJar
 
 FROM gcr.io/distroless/java21-debian12:nonroot
 WORKDIR /app
