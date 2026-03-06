@@ -1,6 +1,5 @@
 package com.example.purrfacts.cat.controller;
 
-import com.example.purrfacts.cat.exception.NoMessagesException;
 import com.example.purrfacts.cat.pubsub.CatPublisher;
 import com.example.purrfacts.cat.pubsub.CatSubscriber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +28,7 @@ public class MessageController {
 
   @GetMapping("/pull")
   public ResponseEntity<String> getMessages() {
-    try {
-      String message = catSubscriber.pull();
-      return ResponseEntity.status(HttpStatus.CREATED).body(message);
-    } catch (NoMessagesException nme) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No messages found");
-    }
+    String message = catSubscriber.pull();
+    return ResponseEntity.status(HttpStatus.CREATED).body(message);
   }
 }
