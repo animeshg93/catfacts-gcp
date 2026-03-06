@@ -29,8 +29,7 @@ public class CatSubscriber {
   }
 
   public String pull(String subscriptionName) {
-
-    List<PubsubMessage> messages = pubSubTemplate.pullAndAck(subscriptionName, 10, true);
+    List<PubsubMessage> messages = pubSubTemplate.pullAndAck(subscriptionName, 2, true);
     return messages.getFirst().getData().toStringUtf8();
   }
 }
