@@ -28,7 +28,7 @@ public class MessageController {
 
   @GetMapping("/pull")
   public ResponseEntity<String> getMessages() {
-    String message = catSubscriber.pull("testTopic-sub");
+    String message = catSubscriber.pull();
     return ResponseEntity.status(HttpStatus.CREATED).body(message);
   }
 }

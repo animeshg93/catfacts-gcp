@@ -1,6 +1,7 @@
 package com.example.purrfacts.cat.pubsub;
 
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
+import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage;
 import com.google.pubsub.v1.PubsubMessage;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,18 +19,12 @@ public class CatSubscriber {
     this.pubSubTemplate = pubSubTemplate;
   }
 
-  public void subscribe(String topic, String message) {
-    pubSubTemplate.subscribe(
-        subscription,
-        mes -> {
-          System.out.println(
-              "Message received is:  " + mes.getPubsubMessage().getData().toStringUtf8());
-          mes.ack();
-        });
+  public void subscribe() {
+    pubSubTemplate.subscribe(subscription, BasicAcknowledgeablePubsubMessage::ack);
   }
 
-  public String pull(String subscriptionName) {
-    List<PubsubMessage> messages = pubSubTemplate.pullAndAck(subscriptionName, 2, true);
+  public String pull() {
+    List<PubsubMessage> messages = pubSubTemplate.pullAndAck(subscription, 2, true);
     return messages.getFirst().getData().toStringUtf8();
   }
 }
