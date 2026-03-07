@@ -38,7 +38,7 @@ public class MessageController {
     return ResponseEntity.status(HttpStatus.CREATED).body(message);
   }
 
-  @GetMapping("/push")
+  @PostMapping("/push")
   public ResponseEntity<String> receiveMessages(@RequestBody PubSubPushMessage message) {
     String rawData = message.getMessage().getData();
 
