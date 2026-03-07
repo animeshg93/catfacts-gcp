@@ -13,9 +13,11 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    String[] authenticatedPatterns = new String[] {"/actuator/**", "/auth/**", "**/message/push"};
+
     http.authorizeHttpRequests(
             auth ->
-                auth.requestMatchers("/actuator/**", "/auth/**")
+                auth.requestMatchers(authenticatedPatterns)
                     .permitAll()
                     .anyRequest()
                     .authenticated())
