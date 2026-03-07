@@ -13,7 +13,7 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    String[] authenticatedPatterns = new String[] {"/actuator/**", "/auth/**", "**/message/push"};
+    String[] authenticatedPatterns = new String[] {"/actuator/**", "/auth/**", "api/message/push"};
 
     http.authorizeHttpRequests(
             auth ->
