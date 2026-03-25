@@ -1,12 +1,10 @@
 package com.example.purrfacts.cat.repository;
 
-import com.example.purrfacts.cat.model.Cartoon;
 import com.example.purrfacts.cat.model.Task;
+import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class TaskRepository {
@@ -16,7 +14,7 @@ public class TaskRepository {
       (rs, rowNum) -> {
         Task task = new Task();
         task.setTask(rs.getString("task"));
-         task.setTaskId(rs.getInt("taskId"));
+        task.setTaskId(rs.getInt("taskId"));
         return task;
       };
 
@@ -26,8 +24,7 @@ public class TaskRepository {
 
   public int save(Task task) {
     String sql = "INSERT INTO tasks (task, taskId) VALUES (?, ?)";
-    return jdbcTemplate.update(
-        sql, task.getTask(), task.getTaskId());
+    return jdbcTemplate.update(sql, task.getTask(), task.getTaskId());
   }
 
   public List<Task> getAll() {
